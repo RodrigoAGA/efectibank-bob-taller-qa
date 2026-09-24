@@ -1,0 +1,6 @@
+# backend/data
+
+Directorio de datos en tiempo de ejecución. El backend crea aquí el archivo
+SQLite `simulaciones.db` al iniciarse.
+
+> ⚠️ `simulaciones.db` NO se versiona — está en `.gitignore`.

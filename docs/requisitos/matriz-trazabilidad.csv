@@ -1,0 +1,19 @@
+RF,Epica,Historia,Criterio de aceptacion,Estado
+RF-01,Configuracion de la simulacion,HU-01 - Seleccion de linea de producto,"Seleccion exclusiva de una unica linea de producto entre las disponibles",Pendiente
+RF-02,Configuracion de la simulacion,HU-02 - Habilitar campos segun la linea seleccionada,"El sistema muestra solo los campos aplicables a la linea elegida (gracia/cuotas dobles solo en Consumo)",Pendiente
+RF-03,Motor de calculo financiero,HU-06 - Calcular el monto financiado,"Monto financiado = valor del bien - cuota inicial - bono",Pendiente
+RF-04,Configuracion de la simulacion,HU-03 - Validar los datos ingresados,"Mensaje de error por campo ante datos invalidos; bloquea el avance hasta corregir",Pendiente
+RF-05,Configuracion de la simulacion,HU-04 - Elegir el plazo de financiamiento,"Solo se muestran y permiten seleccionar los plazos aplicables a la linea elegida",Pendiente
+RF-06,Configuracion de la simulacion,HU-05 - Configurar el periodo de gracia (solo Consumo),"Periodo de gracia de 30 o 60 dias solo disponible en Consumo; cualquier otro valor o producto se rechaza",Pendiente
+RF-07,Motor de calculo financiero,HU-07 - Aplicar la tasa correspondiente,"TEA aplicada dentro del rango minimo-maximo configurado para la linea de producto",Pendiente
+RF-08,Motor de calculo financiero,HU-08 - Calcular la cuota estimada,"Cuota estimada calculada por amortizacion francesa a partir de monto, tasa y plazo",Pendiente
+RF-09,Motor de calculo financiero,HU-09 - Calcular los intereses del financiamiento,"Interes de cada periodo calculado sobre el saldo pendiente decreciente",Pendiente
+RF-10,Motor de calculo financiero,HU-10 - Aplicar cuotas dobles (solo Consumo),"Pago adicional reflejado en el cronograma solo cuando la linea es Consumo",Pendiente
+RF-11,Motor de calculo financiero,HU-11 - Calcular la fecha de la primera cuota,"Fecha de primera cuota calculada desde el desembolso y el dia de pago, ajustada por periodo de gracia",Pendiente
+RF-12,Motor de calculo financiero,HU-12 - Configurar el seguro de desgravamen,"Tasa de seguro aplicada segun modalidad (0.40% sin devolucion / 0.72% con devolucion) sobre saldo pendiente",Pendiente
+RF-13,Resultado y trazabilidad,HU-13 - Visualizar el resumen de la simulacion,"Resultado muestra cuota, intereses, seguro, monto financiado y cronograma",Pendiente
+RF-14,Resultado y trazabilidad,HU-14 - Consultar el cronograma de pagos,"Cronograma con capital, interes, seguro, cuota y saldo pendiente por periodo; ultima fila con saldo 0",Pendiente
+RF-15,Resultado y trazabilidad,HU-15 - Exportar el resultado de la simulacion,"Exportacion genera resumen y cronograma con valores identicos a los mostrados en pantalla",Pendiente
+RF-16,Resultado y trazabilidad,HU-16 - Ver mensajes informativos y disclaimers,"Disclaimer de simulacion referencial visible junto al resultado",Pendiente
+RF-17,Resultado y trazabilidad,HU-17 - Contactar a un asesor comercial,"Boton de contacto visible que envia el contexto de la simulacion al asesor",Pendiente
+RF-18,Resultado y trazabilidad,HU-18 - Registrar la simulacion generada,"Simulacion valida registrada con identificador unico; simulaciones invalidas no se registran",Pendiente
