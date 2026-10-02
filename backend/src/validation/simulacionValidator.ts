@@ -34,6 +34,7 @@ export type ValidationResult =
   | { ok: false; errors: Record<string, string> };
 
 const FECHA_ISO_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+const VALOR_BIEN_MAXIMO = 5_000_000;
 
 function esNumeroFinito(valor: unknown): valor is number {
   return typeof valor === 'number' && Number.isFinite(valor);
@@ -51,6 +52,8 @@ export function validarSimulacionInput(body: unknown): ValidationResult {
   // valorBien
   if (!esNumeroFinito(b.valorBien) || b.valorBien <= 0) {
     errors.valorBien = 'Debe ser un número mayor a 0.';
+  } else if (b.valorBien > VALOR_BIEN_MAXIMO) {
+    errors.valorBien = 'No puede superar S/ 5,000,000.';
   }
 
   // cuotaInicialPct
