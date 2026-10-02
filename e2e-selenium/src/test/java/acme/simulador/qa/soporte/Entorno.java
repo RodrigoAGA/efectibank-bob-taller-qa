@@ -8,7 +8,9 @@ public final class Entorno {
 
     public static final String URL_FRONTEND = System.getProperty("urlFrontend", "http://localhost:5173");
     public static final String URL_API = System.getProperty("urlApi", "http://localhost:3001");
-    public static final String NAVEGADOR = System.getProperty("navegador", "chrome");
+    /** Edge en Windows (viene instalado), Chrome en el resto. */
+    public static final String NAVEGADOR = System.getProperty("navegador",
+            System.getProperty("os.name", "").toLowerCase().contains("win") ? "edge" : "chrome");
     public static final boolean HEADLESS = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
     private Entorno() {

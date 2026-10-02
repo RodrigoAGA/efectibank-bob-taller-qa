@@ -22,10 +22,14 @@ descarga Maven, las dependencias y el driver del navegador.
 
 ```bash
 cd e2e-selenium
-./mvnw test                                   # todas las pruebas, con Chrome
-./mvnw test -Dnavegador=edge                  # con Edge
+./mvnw test                                   # todas las pruebas (Edge en Windows, Chrome en el resto)
+./mvnw test -Dnavegador=chrome                # forzar un navegador (chrome o edge)
 ./mvnw test -Dheadless=true                   # sin abrir la ventana del navegador
 ./mvnw test -Dtest=PeriodoGraciaApiTest       # solo una clase de pruebas
 ```
 
 En Windows se usa `mvnw.cmd` en lugar de `./mvnw`.
+
+Si la red no permite descargar el driver del navegador, se baja a mano la versión que coincide
+con el navegador instalado (Edge: `https://msedgedriver.microsoft.com/<versión>/edgedriver_win64.zip`)
+y se deja `msedgedriver.exe` en una carpeta del `PATH`.
