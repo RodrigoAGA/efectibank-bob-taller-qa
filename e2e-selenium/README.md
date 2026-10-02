@@ -6,7 +6,9 @@ pruebas de API con **REST Assured**, ejecutadas con **JUnit 5** y **Maven**.
 | Prueba | Requisito | Qué valida |
 |---|---|---|
 | `api/PeriodoGraciaApiTest` | HU-05 · RF-06 | Período de gracia por API: 30 y 60 días se aceptan en Consumo; otros valores y otros productos se rechazan. |
+| `api/CuotasDoblesApiTest` | HU-10 · RF-10 | Cuotas dobles por API: se aceptan en Consumo (activadas, desactivadas u omitidas) y se rechazan en Automotriz, Comercial e Hipotecario. Generada con Bob en la sesión 2. |
 | `ui/TeaHipotecarioUiTest` | HU-07 · RF-07 | TEA del Crédito Hipotecario en pantalla: dentro del rango muestra la cuota; fuera del rango indica el rango válido. |
+| `ui/TeaHipotecarioRangoUiTest` | HU-07 · RF-07 | La misma regla con valores límite: 9.80% y 14.90% se aceptan; 9.79% y 14.91% se rechazan. Generada con Bob en la sesión 2. |
 
 ## Requisitos
 

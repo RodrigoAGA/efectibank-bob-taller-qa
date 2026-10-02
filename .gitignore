@@ -23,3 +23,6 @@ npm-debug.log*
 playwright-report/
 test-results/
 coverage/
+
+# Salidas de trabajo de Bob
+.bob/artifacts/

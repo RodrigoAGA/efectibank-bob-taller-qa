@@ -1,0 +1,410 @@
+
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Casos de Prueba HU-05 / RF-06</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.6;
+    background: #ffffff; color: #1f2328;
+    padding: 32px 24px;
+  }
+  .wrapper { max-width: 960px; margin: 0 auto; }
+
+  h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #57606a; margin-bottom: 6px; }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+  .meta span {
+    font-size: 12px; background: #f7f8fa;
+    border: 1px solid #e5e7eb; border-radius: 4px;
+    padding: 3px 10px; color: #57606a;
+  }
+  .meta strong { color: #1f2328; }
+
+  .scope-box {
+    background: #f7f8fa; border: 1px solid #e5e7eb;
+    border-radius: 6px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 13px; color: #1f2328;
+  }
+  .scope-box h2 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #3b82d4; }
+  .scope-box ul { margin-left: 18px; }
+  .scope-box li { margin-bottom: 2px; }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  thead tr { background: #1f2328; color: #ffffff; }
+  thead th {
+    padding: 9px 10px; text-align: left;
+    font-weight: 600; font-size: 12px; letter-spacing: .03em;
+    border: 1px solid #444;
+  }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f7f8fa; }
+  tbody td {
+    padding: 8px 10px; vertical-align: top;
+    border: 1px solid #e5e7eb;
+  }
+
+  .id-cell { font-weight: 700; white-space: nowrap; color: #3b82d4; }
+
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 2px 7px; border-radius: 3px; white-space: nowrap;
+  }
+  .badge-pos  { background: #d1fae5; color: #065f46; }
+  .badge-neg  { background: #fee2e2; color: #991b1b; }
+  .badge-lim  { background: #fef9c3; color: #78350f; }
+  .badge-acc  { background: #dbeafe; color: #1e3a8a; }
+
+  .auto-yes { color: #065f46; font-weight: 600; }
+  .auto-no  { color: #57606a; }
+
+  .section-divider td {
+    background: #e5e7eb; font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .05em;
+    color: #57606a; padding: 5px 10px;
+    border: 1px solid #d1d5db;
+  }
+
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 10px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+
+  .notes {
+    margin-top: 24px; font-size: 12px; color: #57606a;
+    border-top: 1px solid #e5e7eb; padding-top: 14px;
+  }
+  .notes h3 { font-size: 12px; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+  .notes ul { margin-left: 18px; }
+  .notes li { margin-bottom: 3px; }
+
+  .footer {
+    margin-top: 40px; padding-top: 14px; border-top: 1px solid #e5e7eb;
+    text-align: center; font-size: 12px; color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <h1>Casos de Prueba — HU-05 / RF-06</h1>
+  <p class="subtitle">Período de gracia en Crédito al Consumo</p>
+
+  <div class="meta">
+    <span><strong>Historia:</strong> HU-05</span>
+    <span><strong>RF:</strong> RF-06</span>
+    <span><strong>Épica:</strong> 1 — Configuración de la simulación</span>
+    <span><strong>Total de casos:</strong> 14</span>
+    <span><strong>Fuentes:</strong> historias-usuario-refinadas.md · formulas-negocio.md</span>
+  </div>
+
+  <div class="scope-box">
+    <h2>Reglas de negocio cubiertas (solo lo que especifican las fuentes)</h2>
+    <ul>
+      <li>El período de gracia es exclusivo de Crédito al Consumo.</li>
+      <li>Solo se aceptan valores de 30 o 60 días. Cualquier otro valor debe ser rechazado.</li>
+      <li>Durante la gracia los intereses siguen generándose sobre el capital y se incorporan al cálculo posterior de la cuota.</li>
+      <li>Las líneas Automotriz, Comercial e Hipotecario deben rechazar cualquier intento de aplicar período de gracia.</li>
+    </ul>
+  </div>
+
+  <div class="legend">
+    <span style="font-weight:700;font-size:12px">Tipos:</span>
+    <span class="legend-item"><span class="badge badge-pos">Positivo / CE-válida</span> Clase de equivalencia válida</span>
+    <span class="legend-item"><span class="badge badge-neg">Negativo / CE-inválida</span> Clase de equivalencia inválida</span>
+    <span class="legend-item"><span class="badge badge-lim">Valor límite</span> BVA sobre los extremos 30 / 60</span>
+    <span class="legend-item"><span class="badge badge-acc">Accesibilidad UI</span> Visibilidad del control en pantalla</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:60px">ID</th>
+        <th style="width:130px">Precondición</th>
+        <th style="width:90px">Tipo</th>
+        <th style="width:130px">Datos de entrada</th>
+        <th>Pasos</th>
+        <th style="width:180px">Resultado esperado</th>
+        <th style="width:90px">Automatizable</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      
+      <tr class="section-divider"><td colspan="7">A — Visibilidad del campo período de gracia (RF-06 + RF-02)</td></tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-01</td>
+        <td>El usuario está en la pantalla de configuración con línea <strong>Consumo</strong> seleccionada.</td>
+        <td><span class="badge badge-acc">Accesibilidad UI</span></td>
+        <td>Línea: Consumo</td>
+        <td>
+          1. Seleccionar línea <em>Consumo</em>.<br />
+          2. Avanzar a configuración de condiciones.
+        </td>
+        <td>El control "Período de gracia" es visible con las opciones 30 días y 60 días. Ninguna está pre-seleccionada.</td>
+        <td class="auto-yes">Sí — Selenium Java<br /><em>By.xpath que contenga texto "Período de gracia"</em></td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-02</td>
+        <td>El usuario está en la pantalla de configuración con línea <strong>Automotriz</strong> seleccionada.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>Línea: Automotriz</td>
+        <td>
+          1. Seleccionar línea <em>Automotriz</em>.<br />
+          2. Avanzar a configuración de condiciones.
+        </td>
+        <td>El control "Período de gracia" <strong>no</strong> aparece ni está habilitado en el formulario.</td>
+        <td class="auto-yes">Sí — Selenium Java<br /><em>assertFalse(element.isDisplayed())</em></td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-03</td>
+        <td>El usuario está en la pantalla de configuración con línea <strong>Comercial</strong> seleccionada.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>Línea: Comercial</td>
+        <td>
+          1. Seleccionar línea <em>Comercial</em>.<br />
+          2. Avanzar a configuración de condiciones.
+        </td>
+        <td>El control "Período de gracia" <strong>no</strong> aparece ni está habilitado en el formulario.</td>
+        <td class="auto-yes">Sí — Selenium Java</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-04</td>
+        <td>El usuario está en la pantalla de configuración con línea <strong>Hipotecario</strong> seleccionada.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>Línea: Hipotecario</td>
+        <td>
+          1. Seleccionar línea <em>Hipotecario</em>.<br />
+          2. Avanzar a configuración de condiciones.
+        </td>
+        <td>El control "Período de gracia" <strong>no</strong> aparece ni está habilitado en el formulario.</td>
+        <td class="auto-yes">Sí — Selenium Java</td>
+      </tr>
+
+      
+      <tr class="section-divider"><td colspan="7">B — Clases de equivalencia sobre el valor de períodoGracia (API POST /api/simulaciones)</td></tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-05</td>
+        <td>Línea = Consumo. Monto, plazo y TEA dentro de rango válido.</td>
+        <td><span class="badge badge-pos">Positivo / CE-válida</span></td>
+        <td>
+          <code>linea: "CONSUMO"</code><br />
+          <code>periodoGracia: 30</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 30</code>.<br />
+          2. Verificar HTTP 200 y body de respuesta.
+        </td>
+        <td>HTTP 200. La simulación se genera. El cronograma pospone la primera cuota 30 días. El saldo al inicio de la primera cuota refleja el capital más los intereses capitalizados durante la gracia.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-06</td>
+        <td>Línea = Consumo. Monto, plazo y TEA dentro de rango válido.</td>
+        <td><span class="badge badge-pos">Positivo / CE-válida</span></td>
+        <td>
+          <code>linea: "CONSUMO"</code><br />
+          <code>periodoGracia: 60</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 60</code>.<br />
+          2. Verificar HTTP 200 y body de respuesta.
+        </td>
+        <td>HTTP 200. La simulación se genera. El cronograma pospone la primera cuota 60 días. El saldo al inicio refleja el capital más los intereses capitalizados durante 60 días de gracia.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-07</td>
+        <td>Línea = Consumo. Monto, plazo y TEA dentro de rango válido.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>
+          <code>linea: "CONSUMO"</code><br />
+          <code>periodoGracia: 0</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 0</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400 (o equivalente de validación). Mensaje de error indica que solo se aceptan 30 o 60 días. No se registra simulación.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-08</td>
+        <td>Línea = Consumo. Monto, plazo y TEA dentro de rango válido.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>
+          <code>linea: "CONSUMO"</code><br />
+          <code>periodoGracia: 45</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 45</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Mensaje de error indica que solo se aceptan 30 o 60 días. No se registra simulación.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-09</td>
+        <td>Línea = Consumo. Monto, plazo y TEA dentro de rango válido.</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>
+          <code>linea: "CONSUMO"</code><br />
+          <code>periodoGracia: 90</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 90</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Mensaje de error indica que solo se aceptan 30 o 60 días. No se registra simulación.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-10</td>
+        <td>Línea = Automotriz / Comercial / Hipotecario (cualquiera de las tres).</td>
+        <td><span class="badge badge-neg">Negativo / CE-inválida</span></td>
+        <td>
+          <code>linea: "AUTOMOTRIZ"</code><br />
+          <code>periodoGracia: 30</code>
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>linea: AUTOMOTRIZ</code> y <code>periodoGracia: 30</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400 (o equivalente). Mensaje de error indica que el período de gracia no aplica a la línea seleccionada. No se registra simulación.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      
+      <tr class="section-divider"><td colspan="7">C — Análisis de valores límite (BVA) sobre los únicos valores válidos: 30 y 60 días</td></tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-11</td>
+        <td>Línea = Consumo. Parámetros válidos.</td>
+        <td><span class="badge badge-lim">Valor límite</span></td>
+        <td>
+          <code>periodoGracia: 29</code> (límite inferior − 1 de 30)
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 29</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Sistema rechaza el valor. Mensaje indica que solo se aceptan 30 o 60 días.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-12</td>
+        <td>Línea = Consumo. Parámetros válidos.</td>
+        <td><span class="badge badge-lim">Valor límite</span></td>
+        <td>
+          <code>periodoGracia: 31</code> (límite inferior + 1 de 30)
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 31</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Sistema rechaza el valor. Mensaje indica que solo se aceptan 30 o 60 días.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-13</td>
+        <td>Línea = Consumo. Parámetros válidos.</td>
+        <td><span class="badge badge-lim">Valor límite</span></td>
+        <td>
+          <code>periodoGracia: 59</code> (límite superior − 1 de 60)
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 59</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Sistema rechaza el valor. Mensaje indica que solo se aceptan 30 o 60 días.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+      <tr>
+        <td class="id-cell">TC-HU05-14</td>
+        <td>Línea = Consumo. Parámetros válidos.</td>
+        <td><span class="badge badge-lim">Valor límite</span></td>
+        <td>
+          <code>periodoGracia: 61</code> (límite superior + 1 de 60)
+        </td>
+        <td>
+          1. Enviar POST /api/simulaciones con <code>periodoGracia: 61</code>.<br />
+          2. Verificar respuesta.
+        </td>
+        <td>HTTP 400. Sistema rechaza el valor. Mensaje indica que solo se aceptan 30 o 60 días.</td>
+        <td class="auto-yes">Sí — REST Assured</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  
+  <div class="scope-box" style="margin-top:24px">
+    <h2>Resumen de clases de equivalencia y particiones cubiertas</h2>
+    <table style="font-size:12px;width:100%;border-collapse:collapse;margin-top:8px">
+      <thead>
+        <tr style="background:#1f2328;color:#fff">
+          <th style="padding:6px 10px;border:1px solid #444;text-align:left">Partición</th>
+          <th style="padding:6px 10px;border:1px solid #444;text-align:left">Descripción</th>
+          <th style="padding:6px 10px;border:1px solid #444;text-align:left">Casos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#f7f8fa">
+          <td style="padding:5px 10px;border:1px solid #e5e7eb"><strong>CE-1 (válida)</strong></td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">Línea = Consumo, periodoGracia ∈ {30, 60}</td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">TC-HU05-05, TC-HU05-06</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb"><strong>CE-2 (inválida)</strong></td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">Línea = Consumo, periodoGracia ∉ {30, 60} (valor numérico diferente)</td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">TC-HU05-07 (0), TC-HU05-08 (45), TC-HU05-09 (90)</td>
+        </tr>
+        <tr style="background:#f7f8fa">
+          <td style="padding:5px 10px;border:1px solid #e5e7eb"><strong>CE-3 (inválida)</strong></td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">Línea ≠ Consumo, se envía periodoGracia con cualquier valor</td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">TC-HU05-10</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb"><strong>CE-4 (UI)</strong></td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">Visibilidad del control según la línea seleccionada</td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">TC-HU05-01 al TC-HU05-04</td>
+        </tr>
+        <tr style="background:#f7f8fa">
+          <td style="padding:5px 10px;border:1px solid #e5e7eb"><strong>BVA-1</strong></td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">Valores adyacentes a los límites válidos: 29, 31, 59, 61</td>
+          <td style="padding:5px 10px;border:1px solid #e5e7eb">TC-HU05-11 al TC-HU05-14</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notes">
+    <h3>Notas de alcance y supuestos</h3>
+    <ul>
+      <li><strong>El efecto del período de gracia en el cálculo</strong> (intereses capitalizados sobre capital durante la gracia, incorporados a la cuota posterior) está declarado en <code>formulas-negocio.md</code> y en el criterio Gherkin de HU-05; TC-HU05-05 y TC-HU05-06 lo verifican pero <em>no</em> concretan el valor numérico de la cuota resultante, ya que ese dato depende del tarifario vigente y se valida en HU-08 / RF-08.</li>
+      <li><strong>La historia no define</strong> si <code>periodoGracia</code> puede ser nulo/ausente para indicar "sin gracia"; ese comportamiento pertenece a RF-04 (HU-03). Si se requiere un caso de campo omitido, añádirlo a la suite de validación del body (HU-03 / TC-HU03-xx).</li>
+      <li><strong>CE-3 solo representa Automotriz</strong> en TC-HU05-10. Se recomienda parametrizar el test para cubrir también Comercial e Hipotecario sin duplicar la lógica.</li>
+      <li>Todos los casos de API asumen que el contrato de <code>POST /api/simulaciones</code> expone el campo <code>periodoGracia</code>. Verificar contra <code>docs/contracts/tarifario-api.yaml</code> antes de implementar.</li>
+    </ul>
+  </div>
+
+  <div class="footer">Made with IBM Bob</div>
+</div>
+</body>
+</html>
