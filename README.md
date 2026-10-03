@@ -26,8 +26,16 @@ sesión 2 están en `e2e-selenium/`.
 2. **Automatizar.** Bob, en modo `qa-automatizador` (solo puede escribir en `e2e-selenium/`),
    genera las pruebas de API con REST Assured y las de pantalla con Selenium, y las ejecuta.
 3. **Probar un cambio de Desarrollo.** La rama `demo/cambio-desarrollo` trae un cambio en la
-   validación del backend. Ejercicio: pedirle a Bob que lea el último commit, identifique la regla
-   nueva, genere las pruebas con valores límite y las ejecute.
+   validación del backend como último commit. Para hacer el ejercicio:
+   1. `git checkout demo/cambio-desarrollo` y reiniciar el backend (`cd backend && npm start`).
+   2. En Bob, modo `qa-automatizador`, pegar este prompt (también está en
+      `docs/qa/prompts-sesion-2.md`, prompt 4, en la rama `main`):
+
+      ```
+      Desarrollo entregó un cambio en esta rama. Revisa el último commit, identifica qué regla cambió y a qué historia de @docs/requisitos/historias-usuario-refinadas.md corresponde. Genera las pruebas de API que la cubren, con valores límite, ejecútalas junto con las existentes con Maven Wrapper desde e2e-selenium y resume qué quedó cubierto.
+      ```
+   3. Si la regla nueva no está en las historias de usuario, es una pregunta para el analista
+      antes de darla por buena.
 
 ## Estructura del repositorio
 
