@@ -10,7 +10,7 @@ prueba automatizada.
 | Sesión | Tema | Qué se ve |
 |---|---|---|
 | 1 | **Generación de casos de prueba** | De criterios de aceptación (Gherkin) a casos de prueba ejecutables: precondición, datos, pasos y resultado esperado. Clases de equivalencia y valores límite. Generación de la matriz de casos con Bob en modo de solo lectura (`qa-revisor`). |
-| 2 | **Automatización de pruebas** | Automatización con Bob de los casos de la matriz en **Selenium WebDriver + Java** (interfaz) y **REST Assured + Java** (API); revisión de cambios con `/review` y matriz de cobertura por requisito. |
+| 2 | **Automatización de pruebas** | Automatización con Bob de los casos de la matriz en **Selenium WebDriver + Java** (interfaz) y **REST Assured + Java** (API); validación de la matriz contra el sistema real y prueba de un cambio entregado por Desarrollo. |
 
 El simulador está construido en TypeScript (Node.js y React), tal como lo define el bootcamp de IBM.
 Eso no condiciona la automatización: Selenium y REST Assured prueban la aplicación desde afuera
@@ -36,7 +36,6 @@ sesión 2 están en `e2e-selenium/`.
 | `prd/` | PRD del Simulador de Crédito: la fuente de verdad de negocio. |
 | `docs/requisitos/` | Historias de usuario refinadas con criterios Gherkin, matriz de trazabilidad y glosario. |
 | `docs/arquitectura/` | Fórmulas de negocio y decisiones de arquitectura. |
-| `docs/qa/` | Plan de pruebas. |
 | `docs/contracts/`, `openapi/` | Contratos de las APIs (Tarifario, Contacto con asesor). |
 | `backend/` | API del simulador (Node + Express + TypeScript + SQLite) con mock del Tarifario y pruebas (Vitest + Supertest). |
 | `frontend/` | Aplicación web (React + IBM Carbon) con pruebas de componentes (Vitest + Testing Library). |
