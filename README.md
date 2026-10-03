@@ -43,7 +43,7 @@ sesión 2 están en `e2e-selenium/`.
 | `frontend-figma/` | Versión del frontend generada desde el diseño en Figma (Lab 04). |
 | `e2e/` | Pruebas de extremo a extremo de referencia del bootcamp (Playwright). |
 | `e2e-selenium/` | Pruebas automatizadas de la sesión 2: pantalla con **Selenium WebDriver** y API con **REST Assured** (Java 17, JUnit 5, Maven Wrapper). Ver su `README.md`. |
-| `docs/qa/` | Plan de pruebas y matriz de casos de la sesión 1. |
+| `docs/qa/` | Plan de pruebas, matriz de casos de la sesión 1 y prompts de la sesión 2 (`prompts-sesion-2.md`). |
 | `labs/` | Guías paso a paso por fase del ciclo de desarrollo. Para QA: **Lab 02** (requerimientos) y **Lab 07** (testing). |
 | `.bob/`, `AGENTS.md` | Modos personalizados, skills y reglas de proyecto de Bob. Para QA: `qa-revisor` (solo lectura) y `qa-automatizador` (escribe y ejecuta pruebas solo en `e2e-selenium/`). |
 
